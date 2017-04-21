@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+
+        #wall {
+            width: 100%;
+            height: 5px;
+            background-color: red;
+            position: absolute;
+            top: 400px;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">走你</button>
+<div id="box"></div>
+<div id="wall"></div>
+</body>
+</html>
+<script>
+    var btn = document.getElementById("btn");
+    var box = document.getElementById("box");
+
+    var G = 1;//重力加速度9.8约等于10 这里为了好看只取1 相当于让其他参数放大十倍
+
+    btn.onclick = function () {
+        var speedX = 5;//水平方向速度恒定为20
+        var speedY = 0;//垂直方向初速度为0
+
+        setInterval(function () {
+            speedY = speedY + G;//垂直方向 vt=v0+Gt;
+
+            box.style.left = box.offsetLeft + speedX + "px";
+            box.style.top = box.offsetTop + speedY + "px";
+
+            //碰撞检测
+            if (box.offsetTop + box.offsetHeight > 400) {
+                box.style.top = 400 - box.offsetHeight + "px";
+                //碰撞后速度不变方向相反
+                speedY = -speedY;
+            }
+        }, 25)
+    }
+</script>
